@@ -1,0 +1,45 @@
+General idea of the assignment
+
+There are various measures of "readability"--how good a reader need to be in order to understand a passage of English text. These measures are based on the average length of words (usually measured in syllables) and the average length of sentences (measured in words). The result is usually given as the number of years a child has to have attended school (her grade level) in order to understand the text. These measures are crude, but better than nothing. Our goal is to let the user read in a passage of text (from a file), apply the formulae, and print out the results.
+
+Technical details
+
+Here are the formulae you should apply. These have been taken from the corresponding Wikipedia articles and from http://www.readability.info/info.shtml; where these disagree, the formula is used from the latter. We are using a simple syllable-counting algorithm based on an article in Stack Overflow. Since we will be using our own unit tests to test your program, follow this assignment exactly as written. Provide exactly the functions listed below, with exactly the same names and parameter lists, and save it in a file named exactly readability.py. Save your unit tests in a second file named readability_test.py.
+
+Name	Formula	Notes
+Kincaid	11.8*syllables/words+0.39*words/sentences-15.59	Also known as "Flesch-Kincaid."
+Automated Readability Index	 4.71*letters/words+0.5*words/sentences-21.43	Also known as "ARI."
+Coleman-Liau	5.89*letters/words-0.3*sentences/(100*words)-15.8	 
+Flesch	206.835-84.6*syllables/words-1.015*words/sentences	Not comparable to others--high scores (up to about 100) are easier.
+Fog (Gunning)	0.4*(words/sentences+100*((words >= 3 syllables)/words))	 The words count includes the count of words with three or more syllables.
+Lix	 words/sentences+100*(words >= 6 characters)/words	The words count includes the count of words with six or more letters.
+SMOG	
+3 + square root of (30*(words >= 3 syllables)/words)
+
+SMOG is an acronym for "Simple Measure Of Gobbledygook." There are various versions; use this one.
+
+The words count includes the count of words with three or more syllables.
+
+Counting sentences
+
+A sentence is any sequence of one or more words (there are no zero-length sentences), ending with a period (.), a question mark (?), or an exclamation point (!). For example, "Dr. Dave teaches CIS591." is two sentences.
+
+If the input text ends with words, but not a period, question mark, or exclamation point, it also counts as a sentence. (Hint: Instead of making a special case for this, just put a period at the end of the input when you read it in.)
+
+Counting words
+
+A word is any consecutive sequence of letters, where an apostrophe (') is considered to be a letter. (There are cases where an apostrophe is used as a quotation mark, but they are rare, and we will ignore them.)
+
+Anything that is not a letter (whitespace, punctuation, digits) just separates words. Hyphenated words, such as ex-wife, should be counted as two words.
+
+Case doesn't matter. Words that differ only in case ( "Pat" and "pat") are considered to be the same word.
+
+Counting syllables
+
+The vowels are a, e, i, o, u, y. Each sequence of consecutive vowels counts as one syllable (so "delicious" has three syllables). However, there are some special cases:
+
+Final -es, -ed, and -e are not syllables (except for final -le, which is a syllable).
+Words of three or fewer letters count as one syllable.
+'y' at the beginning of a word doesn't count as a vowel.
+Every word has at least one syllable, even if it has no vowels (for example, 'Dr.' has one syllable).
+
